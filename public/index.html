@@ -22,9 +22,29 @@ header p { font-size: 13px; color: #888; margin-top: 2px; }
 #send-btn:hover { background: #1d4ed8; }
 #reset-btn { background: transparent; color: #888; border: 1px solid #2a2d3a; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; }
 #reset-btn:hover { color: #e0e0e0; }
+#password-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f1117; display: flex; align-items: center; justify-content: center; z-index: 999; }
+#password-box { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 12px; padding: 40px; width: 340px; text-align: center; }
+#password-box h2 { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+#password-box p { font-size: 13px; color: #888; margin-bottom: 24px; }
+#password-input { width: 100%; background: #0f1117; border: 1px solid #2a2d3a; color: #e0e0e0; padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none; margin-bottom: 12px; }
+#password-input:focus { border-color: #2563eb; }
+#password-btn { width: 100%; background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+#password-btn:hover { background: #1d4ed8; }
+#password-error { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
 </style>
 </head>
 <body>
+
+<div id="password-screen">
+  <div id="password-box">
+    <h2>FAE Component Advisor</h2>
+    <p>Enter the access password to continue</p>
+    <input type="password" id="password-input" placeholder="Password" onkeydown="if(event.key==='Enter') checkPassword()" />
+    <button id="password-btn" onclick="checkPassword()">Enter</button>
+    <div id="password-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
 <header>
 <h1>FAE Component Advisor</h1>
 <p>Describe your application problem and I will recommend the right component</p>
@@ -38,6 +58,15 @@ header p { font-size: 13px; color: #888; margin-top: 2px; }
 <button id="send-btn" onclick="sendMessage()">Send</button>
 </div>
 <script>
+function checkPassword() {
+  const input = document.getElementById("password-input").value;
+  if (input === "FAE16571") {
+    document.getElementById("password-screen").style.display = "none";
+  } else {
+    document.getElementById("password-error").style.display = "block";
+  }
+}
+
 const chatContainer = document.getElementById("chat-container");
 const userInput = document.getElementById("user-input");
 
